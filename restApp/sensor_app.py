@@ -1,26 +1,39 @@
 from flask import Flask, request
+from dateutil import parser
+import datetime
 
 app = Flask(__name__)
 
 in_memory_datastore = {
-   "1": {"id": "1", "date": 1960, "country": "Ireland", "city" : "Dublin"},
-   "2": {"id": "2", "date": 1958, "country": "Germany", "city" : "Berlin"},
-   "3": {"id": "3", "date": 1962, "country": "England", "city" : "London"},
+   "1": {"id": "1", "date": datetime.datetime(2003, 5, 11), "country": "Ireland", "city" : "Dublin"},
+   "2": {"id": "2", "date": datetime.datetime(2019, 11, 17), "country": "Germany", "city" : "Berlin"},
+   "3": {"id": "3", "date": datetime.datetime(2022, 4, 8), "country": "England", "city" : "London"},
 }
 
-@app.route('/sensors', methods=['GET', 'POST'])
+@app.route('/sensors', methods=['GET', 'POST', 'QUERY'])
 def sensors_route():
    if request.method == 'GET':
        return list_sensors()
    elif request.method == "POST":
        return create_sensor(request.get_json(force=True))
+   elif request.method == 'QUERY':
+       return query_sensors()
 
 def list_sensors():
-   before_year = request.args.get('before_year') or '30000'
-   after_year = request.args.get('after_year') or '0'
+   before_date = request.args.get('before_date')
+   after_date = request.args.get('after_date')
+
+   if isinstance(before_date, str):
+      before_date = parser.parse(before_date)
+   if isinstance(after_date, str):
+      after_date = parser.parse(after_date)
+
+   if before_date == None or after_date == None:
+      return {"sensor": list(in_memory_datastore.items())[len(in_memory_datastore) - 1]}
+
    qualifying_data = list(
        filter(
-           lambda pl: int(before_year) > pl['date'] > int(after_year),
+           lambda pl: before_date > pl['date'] > after_date,
            in_memory_datastore.values()
        )
    )
@@ -31,6 +44,9 @@ def create_sensor(new_sens):
    sensor_name = new_sens['id']
    in_memory_datastore[sensor_name] = new_sens
    return new_sens
+
+def query_sensors():
+   return "hi"
 
 @app.route('/sensors/<sensor_name>', methods=['GET', 'PUT', 'DELETE'])
 def sensor_route(sensor_name):
