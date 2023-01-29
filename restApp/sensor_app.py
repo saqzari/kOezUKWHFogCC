@@ -5,9 +5,9 @@ import datetime
 app = Flask(__name__)
 
 in_memory_datastore = {
-   "1": {"id": "1", "date": datetime.datetime(2003, 5, 11), "country": "Ireland", "city" : "Dublin"},
-   "2": {"id": "2", "date": datetime.datetime(2019, 11, 17), "country": "Germany", "city" : "Berlin"},
-   "3": {"id": "3", "date": datetime.datetime(2022, 4, 8), "country": "England", "city" : "London"},
+   "1": {"id": "1", "date": datetime.datetime(2003, 5, 11), "country": "Ireland", "city" : "Dublin", "temperature (C)" : 8, "wind-speed (km)": 23, "humidity (%)": 30},
+   "2": {"id": "2", "date": datetime.datetime(2019, 11, 17), "country": "Germany", "city" : "Berlin", "temperature (C)" : 11, "wind-speed (km)": 33, "humidity (%)": 12},
+   "3": {"id": "3", "date": datetime.datetime(2022, 4, 8), "country": "England", "city" : "London", "temperature (C)" : 12, "wind-speed (km)": 35, "humidity (%)": 65},
 }
 
 @app.route('/sensors', methods=['GET', 'POST', 'QUERY'])
@@ -38,7 +38,10 @@ def list_sensors():
        )
    )
 
-   return {"sensors": qualifying_data}
+   return {"sensors": qualifying_data, 
+          "avg temp.": average("temperature (C)", qualifying_data),
+          "avg wind.": average("wind-speed (km)", qualifying_data),
+          "avg humidity": average("humidity (%)", qualifying_data)}
 
 def create_sensor(new_sens):
    sensor_name = new_sens['id']
@@ -47,6 +50,15 @@ def create_sensor(new_sens):
 
 def query_sensors():
    return "hi"
+
+def average(field, data):
+   total = 0
+   count = 0
+   for i in data:
+      if i.get(field) != None:
+         total += i[field]
+         count = count + 1
+   return round(total/count, 2)
 
 @app.route('/sensors/<sensor_name>', methods=['GET', 'PUT', 'DELETE'])
 def sensor_route(sensor_name):
