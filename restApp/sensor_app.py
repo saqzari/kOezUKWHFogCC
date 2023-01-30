@@ -10,15 +10,18 @@ in_memory_datastore = {
    "3": {"id": "3", "date": datetime.datetime(2022, 4, 8), "country": "England", "city" : "London", "temperature (C)" : 12, "wind-speed (km)": 35, "humidity (%)": 65},
 }
 
+@app.route('/hello')
+def hello_world():
+   return 'Hello World'
+
 @app.route('/sensors', methods=['GET', 'POST', 'QUERY'])
 def sensors_route():
    if request.method == 'GET':
        return list_sensors()
    elif request.method == "POST":
        return create_sensor(request.get_json(force=True))
-   elif request.method == 'QUERY':
-       return query_sensors()
 
+# writes out filtered version of in_memory_datastore depending of dates and averages
 def list_sensors():
    before_date = request.args.get('before_date')
    after_date = request.args.get('after_date')
@@ -43,14 +46,13 @@ def list_sensors():
           "avg wind.": average("wind-speed (km)", qualifying_data),
           "avg humidity": average("humidity (%)", qualifying_data)}
 
+# register new sensor
 def create_sensor(new_sens):
    sensor_name = new_sens['id']
    in_memory_datastore[sensor_name] = new_sens
    return new_sens
 
-def query_sensors():
-   return "hi"
-
+# obtain average from list of dict of one field
 def average(field, data):
    total = 0
    count = 0
@@ -58,6 +60,8 @@ def average(field, data):
       if i.get(field) != None:
          total += i[field]
          count = count + 1
+   if count == 0:
+      return 0
    return round(total/count, 2)
 
 @app.route('/sensors/<sensor_name>', methods=['GET', 'PUT', 'DELETE'])
