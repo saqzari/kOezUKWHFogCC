@@ -17,7 +17,7 @@ NOTE: Using a GET curl command is also possible. Also when viewing multiple sens
 7. To update the fields of a current sensor including metrics, curl PUT command:
    - e.g ```curl,exe -X PUT http://127.0.0.1:5000/sensors/1 -H 'Content-Type: application/json' -d '{/"city/": /"Spain/"}``` <br />
    NOTE: This above example changes the city of sensor with id 1 to Spain
-8. To delete a sensor simply curl delete
+8. To delete a sensor simply curl DELETE
    - ```curl.exe -X DELETE http://127.0.0.1:5000/sensors/<id>```
 9. To run tests:
 - unit -> .\sensor_unit_test.py
