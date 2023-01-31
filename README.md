@@ -4,7 +4,7 @@ Sensor Rest API instructions:
 2. Set enviorment variables:
    a) '$env:FLASK_APP = "sensor_app.py"'
 3. Run Flask (python -m flask run)
-4. In http://127.0.0.1:5000/sensors, sensors will be viewable (by default latest one is only viewable)
+4. In ```http://127.0.0.1:5000/sensors```, sensors will be viewable (by default latest one is only viewable)
 5. To view other sensors:
    a) ```http://127.0.0.1:5000/sensors/<id>```
    b) ```http://127.0.0.1:5000/sensors?before_date=<before date>&after_date=<after date>```
