@@ -25,5 +25,5 @@ NOTE: Using a GET curl command is also possible. Also when viewing multiple sens
 
 
 ## If I had more time:
-**1.** Add more tests
-**2.** Add more ways to query. For now, averages for the metrics are displayed along with sensors in the inputted date range
+1. Add more tests
+2. Add more ways to query. For now, averages for the metrics are displayed along with sensors in the inputted date range
