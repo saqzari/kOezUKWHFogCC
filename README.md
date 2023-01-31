@@ -3,7 +3,7 @@
 1. Flask needs to be installed (```pip install flask```) 
 2. Set enviorment variables: 
    a) '$env:FLASK_APP = "sensor_app.py"' 
-3. Run Flask (python -m flask run) 
+3. Run Flask (python -m flask run) in the restApp directory
 4. In ```http://127.0.0.1:5000/sensors```, sensors will be viewable (by default latest one is only viewable) 
 5. To view other sensors: <br />
    a) ```http://127.0.0.1:5000/sensors/<id>``` <br />
