@@ -10,15 +10,15 @@ Sensor Rest API instructions:
    b) ```http://127.0.0.1:5000/sensors?before_date=<before date>&after_date=<after date>```
 NOTE: Using a GET curl command is also possible. Also when viewing multiple sensors, the averages of the metrics of the current displaying sensors will be displayed
 6. To register new sensor, curl POST command:
-   - e.g  """curl.exe -X POST http://127.0.0.1:5000/sensors  
+   - e.g  ```curl.exe -X POST http://127.0.0.1:5000/sensors  
             -H 'Content-Type: application/json' 
-            -d '{\"id\": 123, \"country\": \"Spain\", \"city\": \"Madrid\", \"temperature (C)\": 24, \"wind-speed (km)\": 50, \"humidity (%)\": 42}'
+            -d '{\"id\": 123, \"country\": \"Spain\", \"city\": \"Madrid\", \"temperature (C)\": 24, \"wind-speed (km)\": 50, \"humidity (%)\": 42}'```
     NOTE: Not including date will put in the current date/time as default
 7. To update the fields of a current sensor including metrics, curl PUT command:
-   - e.g """curl -X PUT http://127.0.0.1:5000/sensors/1 -H 'Content-Type: application/json' -d '{/"city/": /"Spain/"}"""
+   - e.g ```curl -X PUT http://127.0.0.1:5000/sensors/1 -H 'Content-Type: application/json' -d '{/"city/": /"Spain/"}```
    NOTE: This above example changes the city of sensor with id 1 to Spain
 8. To delete a sensor simply curl delete
-   - "curl.exe -X DELETE http://127.0.0.1:5000/sensors/<id>"
+   - ```curl.exe -X DELETE http://127.0.0.1:5000/sensors/<id>```
 9. To run tests:
 - unit -> .\sensor_unit_test.py
 - integration ->  python -m pytest .\sensor_integration_test.py
