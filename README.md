@@ -15,7 +15,7 @@ NOTE: Using a GET curl command is also possible. Also when viewing multiple sens
             -d '{\"id\": 123, \"country\": \"Spain\", \"city\": \"Madrid\", \"temperature (C)\": 24, \"wind-speed (km)\": 50, \"humidity (%)\": 42}'``` <br />
     NOTE: Not including date will put in the current date/time as default
 7. To update the fields of a current sensor including metrics, curl PUT command:
-   - e.g ```curl -X PUT http://127.0.0.1:5000/sensors/1 -H 'Content-Type: application/json' -d '{/"city/": /"Spain/"}``` <br />
+   - e.g ```curl,exe -X PUT http://127.0.0.1:5000/sensors/1 -H 'Content-Type: application/json' -d '{/"city/": /"Spain/"}``` <br />
    NOTE: This above example changes the city of sensor with id 1 to Spain
 8. To delete a sensor simply curl delete
    - ```curl.exe -X DELETE http://127.0.0.1:5000/sensors/<id>```
