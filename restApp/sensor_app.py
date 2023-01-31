@@ -1,13 +1,13 @@
 from flask import Flask, request
 from dateutil import parser
-import datetime
+from datetime import datetime
 
 app = Flask(__name__)
 
 in_memory_datastore = {
-   "1": {"id": "1", "date": datetime.datetime(2003, 5, 11), "country": "Ireland", "city" : "Dublin", "temperature (C)" : 8, "wind-speed (km)": 23, "humidity (%)": 30},
-   "2": {"id": "2", "date": datetime.datetime(2019, 11, 17), "country": "Germany", "city" : "Berlin", "temperature (C)" : 11, "wind-speed (km)": 33, "humidity (%)": 12},
-   "3": {"id": "3", "date": datetime.datetime(2022, 4, 8), "country": "England", "city" : "London", "temperature (C)" : 12, "wind-speed (km)": 35, "humidity (%)": 65},
+   "1": {"id": "1", "date": datetime(2003, 5, 11), "country": "Ireland", "city" : "Dublin", "temperature (C)" : 8, "wind-speed (km)": 23, "humidity (%)": 30},
+   "2": {"id": "2", "date": datetime(2019, 11, 17), "country": "Germany", "city" : "Berlin", "temperature (C)" : 11, "wind-speed (km)": 33, "humidity (%)": 12},
+   "3": {"id": "3", "date": datetime(2022, 4, 8), "country": "England", "city" : "London", "temperature (C)" : 12, "wind-speed (km)": 35, "humidity (%)": 65},
 }
 
 @app.route('/hello')
@@ -32,11 +32,11 @@ def list_sensors():
       after_date = parser.parse(after_date)
 
    if before_date == None or after_date == None:
-      return {"sensor": list(in_memory_datastore.items())[len(in_memory_datastore) - 1]}
+      return {"sensor": list(in_memory_datastore.values())[len(in_memory_datastore) - 1]}
 
    qualifying_data = list(
        filter(
-           lambda pl: before_date > pl['date'] > after_date,
+           lambda pl: before_date > datetime.strptime(str(pl['date']), "%Y-%m-%d %H:%M:%S") > after_date,
            in_memory_datastore.values()
        )
    )
@@ -49,6 +49,8 @@ def list_sensors():
 # register new sensor
 def create_sensor(new_sens):
    sensor_name = new_sens['id']
+   if ('date' not in new_sens):
+      new_sens['date'] = str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
    in_memory_datastore[sensor_name] = new_sens
    return new_sens
 
