@@ -9,7 +9,7 @@
    a) ```http://127.0.0.1:5000/sensors/<id>``` <br />
    b) ```http://127.0.0.1:5000/sensors?before_date=<before date>&after_date=<after date>``` <br />
 NOTE: Using a GET curl command is also possible. Also when viewing multiple sensors, the averages of the metrics of the current displaying sensors will be displayed <br />
-**6.** To register new sensor, curl POST command: <br />
+**6.** To register new sensor, curl POST command:
    - e.g  ```curl.exe -X POST http://127.0.0.1:5000/sensors
             -H 'Content-Type: application/json' 
             -d '{\"id\": 123, \"country\": \"Spain\", \"city\": \"Madrid\", \"temperature (C)\": 24, \"wind-speed (km)\": 50, \"humidity (%)\": 42}'``` <br />
