@@ -1,22 +1,22 @@
 ## Sensor Rest API instructions:
 
-**1.** Flask needs to be installed (```pip install flask```)
-**2.** Set enviorment variables:
-   **a)** '$env:FLASK_APP = "sensor_app.py"'
-**3.** Run Flask (python -m flask run)
-**4.** In ```http://127.0.0.1:5000/sensors```, sensors will be viewable (by default latest one is only viewable)
+**1.** Flask needs to be installed (```pip install flask```) <br />
+**2.** Set enviorment variables: <br />
+   **a)** '$env:FLASK_APP = "sensor_app.py"' <br />
+**3.** Run Flask (python -m flask run) <br />
+**4.** In ```http://127.0.0.1:5000/sensors```, sensors will be viewable (by default latest one is only viewable) <br />
 **5.** To view other sensors: <br />
    a) ```http://127.0.0.1:5000/sensors/<id>``` <br />
    b) ```http://127.0.0.1:5000/sensors?before_date=<before date>&after_date=<after date>``` <br />
-NOTE: Using a GET curl command is also possible. Also when viewing multiple sensors, the averages of the metrics of the current displaying sensors will be displayed
-**6.** To register new sensor, curl POST command:
-   - e.g  ```curl.exe -X POST http://127.0.0.1:5000/sensors  
+NOTE: Using a GET curl command is also possible. Also when viewing multiple sensors, the averages of the metrics of the current displaying sensors will be displayed <br />
+**6.** To register new sensor, curl POST command: <br />
+   - e.g  ```curl.exe -X POST http://127.0.0.1:5000/sensors
             -H 'Content-Type: application/json' 
             -d '{\"id\": 123, \"country\": \"Spain\", \"city\": \"Madrid\", \"temperature (C)\": 24, \"wind-speed (km)\": 50, \"humidity (%)\": 42}'``` <br />
-    NOTE: Not including date will put in the current date/time as default
+    NOTE: Not including date will put in the current date/time as default <br />
 **7.** To update the fields of a current sensor including metrics, curl PUT command:
    - e.g ```curl,exe -X PUT http://127.0.0.1:5000/sensors/1 -H 'Content-Type: application/json' -d '{/"city/": /"Spain/"}``` <br />
-   NOTE: This above example changes the city of sensor with id 1 to Spain
+   NOTE: This above example changes the city of sensor with id 1 to Spain <br />
 **8.** To delete a sensor simply curl delete
    - ```curl.exe -X DELETE http://127.0.0.1:5000/sensors/<id>```
 **9.** To run tests:
